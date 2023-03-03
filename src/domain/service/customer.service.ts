@@ -20,6 +20,6 @@ export default class CustomerService {
 
     changeAddress(customer: Customer, address: Address){
         customer.Address = address
-        this.eventDispatcher.notify(new CustomerAddressChangedEvent({}))
+        this.eventDispatcher.notify(new CustomerAddressChangedEvent({customer}))
     }
 }
