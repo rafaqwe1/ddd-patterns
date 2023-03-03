@@ -1,27 +1,33 @@
 import Address from "../entity/address"
 import EventDispatcher from "../event/@shared/event-dispatcher"
-import EnviaConsoleLog1 from "../event/customer/handler/envia-console-1.handler"
-import EnviaConsoleLog2 from "../event/customer/handler/envia-console-2.handler"
+import EnviaConsoleLogHandler from "../event/customer/handler/envia-console-log.handler"
+import EnviaConsoleLog1Handler from "../event/customer/handler/envia-console-log-1.handler"
+import EnviaConsoleLog2Handler from "../event/customer/handler/envia-console-log-2.handler"
 import CustomerService from "./customer.service"
 describe("Customer service unit tests", () => {
     it("should create a customer and notify all the events", () => {
         const eventDispatcher = new EventDispatcher()
     
-        const customerCreatedEvent = new EnviaConsoleLog1()
-        const spyCustomerCreated = jest.spyOn(customerCreatedEvent, "handle")
+        const customerCreatedEvent1 = new EnviaConsoleLog1Handler()
+        const spyCustomerCreated1 = jest.spyOn(customerCreatedEvent1, "handle")
 
-        eventDispatcher.register("CustomerCreatedEvent", customerCreatedEvent)
+        const customerCreatedEvent2 = new EnviaConsoleLog2Handler()
+        const spyCustomerCreated2 = jest.spyOn(customerCreatedEvent2, "handle")
+
+        eventDispatcher.register("CustomerCreatedEvent", customerCreatedEvent1)
+        eventDispatcher.register("CustomerCreatedEvent", customerCreatedEvent2)
         
         const service = new CustomerService(eventDispatcher)
 
         service.create("1", "customer 1")
-        expect(spyCustomerCreated).toHaveBeenCalled()     
+        expect(spyCustomerCreated1).toHaveBeenCalled()     
+        expect(spyCustomerCreated2).toHaveBeenCalled()     
     })
 
     it("should change a customer address and notify all the events", () => {
         const eventDispatcher = new EventDispatcher()
 
-        const addressChangedEvent = new EnviaConsoleLog2()
+        const addressChangedEvent = new EnviaConsoleLogHandler()
         const spyAddressChanged = jest.spyOn(addressChangedEvent, "handle")
 
         eventDispatcher.register("CustomerAddressChangedEvent", addressChangedEvent)
