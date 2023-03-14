@@ -1,8 +1,8 @@
-import Address from "../entity/address"
-import EventDispatcher from "../event/@shared/event-dispatcher"
-import EnviaConsoleLogHandler from "../event/customer/handler/envia-console-log.handler"
-import EnviaConsoleLog1Handler from "../event/customer/handler/envia-console-log-1.handler"
-import EnviaConsoleLog2Handler from "../event/customer/handler/envia-console-log-2.handler"
+import Address from "../value-object/address"
+import EventDispatcher from "../../@shared/event/event-dispatcher"
+import EnviaConsoleLogHandler from "../event/handler/envia-console-log.handler"
+import EnviaConsoleLog1Handler from "../event/handler/envia-console-log-1.handler"
+import EnviaConsoleLog2Handler from "../event/handler/envia-console-log-2.handler"
 import CustomerService from "./customer.service"
 describe("Customer service unit tests", () => {
     it("should create a customer and notify all the events", () => {
